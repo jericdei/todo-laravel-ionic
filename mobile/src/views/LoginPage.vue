@@ -20,6 +20,7 @@ async function handleSubmit() {
 
     if (errors.value.length > 0) {
         alert.error(errors.value[0])
+        errors.value = {}
     }
 }
 </script>
@@ -36,6 +37,7 @@ async function handleSubmit() {
                             label="Email"
                             label-placement="floating"
                             fill="outline"
+                            class="text-white"
                         />
 
                         <IonInput
@@ -44,6 +46,7 @@ async function handleSubmit() {
                             label="Password"
                             label-placement="floating"
                             fill="outline"
+                            class="text-white"
                         />
 
                         <IonButton @click="handleSubmit" :disabled="processing">Login</IonButton>
