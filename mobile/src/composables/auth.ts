@@ -29,10 +29,13 @@ export default function useAuth() {
                 value: response.status.toString(),
             })
         } catch (error) {
-            if (!(error instanceof AxiosError)) throw error
-            if (error.response?.status !== 422) throw error
-
-            errors.value = Object.values(error.response.data.errors).flat()
+            if (!(error instanceof AxiosError)) {
+                console.error(error)
+            } else {
+                if (error.response?.status === 422) {
+                    errors.value = Object.values(error.response.data.errors).flat()
+                }
+            }
         } finally {
             processing.value = false
 

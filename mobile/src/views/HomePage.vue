@@ -22,7 +22,7 @@ const todos = ref<Todo[]>([])
 
 onMounted(async () => {
     try {
-        const response = await axios.get("api/todos")
+        const response = await axios.get("todos")
 
         todos.value = response?.data.todos
     } catch (error) {
