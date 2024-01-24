@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import useAlert from "@/composables/alert"
-import { useAuth } from "@/stores/auth"
+import useAuth from "@/composables/auth"
 import { IonContent, IonPage, IonInput, IonButton } from "@ionic/vue"
-import { reactive, ref } from "vue"
+import { reactive } from "vue"
 
 const auth = useAuth()
 const alert = useAlert()
@@ -12,15 +12,12 @@ const form = reactive({
     password: "",
 })
 
-const processing = ref(false)
-const errors = ref<Record<string, any>>({})
-
 async function handleSubmit() {
-    await auth.login(form, processing, errors)
+    await auth.login(form)
 
-    if (errors.value.length > 0) {
-        alert.error(errors.value[0])
-        errors.value = {}
+    if (auth.errors.value.length > 0) {
+        alert.error(auth.errors.value[0])
+        auth.errors.value = {}
     }
 }
 </script>
@@ -49,7 +46,7 @@ async function handleSubmit() {
                             class="text-white"
                         />
 
-                        <IonButton @click="handleSubmit" :disabled="processing">Login</IonButton>
+                        <IonButton @click="handleSubmit" :disabled="auth.processing.value">Login</IonButton>
                     </div>
                 </div>
             </div>

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import axios from "@/lib/axios"
 import { IonButton, IonContent, IonIcon, IonItem, IonLabel, IonList, IonPage } from "@ionic/vue"
 import { onMounted, ref } from "vue"
 import { createOutline, trashOutline } from "ionicons/icons"
-import { useAuth } from "@/stores/auth"
+import useAuth from "@/composables/auth"
 import useAlert from "@/composables/alert"
+import axios from "@/lib/axios"
 
 const { logout } = useAuth()
 const { confirm } = useAlert()
@@ -24,7 +24,7 @@ onMounted(async () => {
     try {
         const response = await axios.get("api/todos")
 
-        todos.value = response.data.todos
+        todos.value = response?.data.todos
     } catch (error) {
         console.error(error)
     }
