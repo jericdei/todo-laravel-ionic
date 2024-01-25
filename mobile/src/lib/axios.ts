@@ -1,8 +1,11 @@
 import { Preferences } from "@capacitor/preferences"
 import Axios from "axios"
+import { isPlatform } from "@ionic/vue"
 
 const axios = Axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL,
+    baseURL: isPlatform("mobile")
+        ? import.meta.env.VITE_API_MOBILE_BASE_URL
+        : import.meta.env.VITE_API_DESKTOP_BASE_URL,
     headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
